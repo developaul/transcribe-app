@@ -1,7 +1,11 @@
+import Header from "@/components/Header";
+import ProjectList from "@/components/ProjectList";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Transcribe App</h1>
-    </main>
+    <div className="container flex flex-col">
+      <Header />
+      <ProjectList />
+    </div>
   );
 }
