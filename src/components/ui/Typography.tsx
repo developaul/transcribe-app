@@ -24,6 +24,9 @@ export const TypographyP: FC<PropsWithChildren> = ({ children }) => {
   )
 }
 
+export const TypographyLarge: FC<PropsWithChildren> = ({ children }) => {
+  return <div className="text-lg font-semibold">{children}</div>
+}
 
 export const TypographySmall: FC<PropsWithChildren> = ({ children }) => {
   return (
