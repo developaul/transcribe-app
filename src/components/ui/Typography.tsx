@@ -1,4 +1,6 @@
-import { FC, PropsWithChildren } from "react"
+import React, { FC, PropsWithChildren } from "react"
+
+import { cn } from "@/lib/utils"
 
 export const TypographyH1: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -16,9 +18,16 @@ export const TypographyH2: FC<PropsWithChildren> = ({ children }) => {
   )
 }
 
-export const TypographyP: FC<PropsWithChildren> = ({ children }) => {
+
+export interface TypopgrahyProps
+  extends React.InputHTMLAttributes<HTMLParagraphElement> { }
+
+export const TypographyP: FC<TypopgrahyProps> = ({ className, children, ...props }) => {
   return (
-    <p className="leading-7 [&:not(:first-child)]:mt-6">
+    <p
+      className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+      {...props}
+    >
       {children}
     </p>
   )

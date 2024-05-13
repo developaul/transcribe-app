@@ -1,8 +1,8 @@
 import { NextPage } from "next";
-import { Upload } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import UploadFile from "@/components/UploadFile";
 import { Input } from "@/components/ui/input"
+import { TypographyP } from "@/components/ui/Typography";
 
 interface Props {
   params: {
@@ -17,15 +17,10 @@ const ProjectPage: NextPage<Props> = ({ params }) => {
     <div className="flex flex-col">
       <Input placeholder="Untitled" />
 
-      <div>
-        <Button className="flex">
-          <Upload className="mr-2 w-4 h-4" />
-          Add File
-        </Button>
+      <TypographyP className="mb-8">Easily transcribe your audio files with our intuitive interface</TypographyP>
 
-        <Input className="hidden" id="picture" type="file" />
-      </div>
-    </div>
+      <UploadFile />
+    </div >
   );
 }
 export default ProjectPage
