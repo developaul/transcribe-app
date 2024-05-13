@@ -1,7 +1,9 @@
+'use client'
 import { Plus } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import ProjectItem from './ProjectItem'
-import { TypographyH1 } from './ui/Typography'
+import ProjectItem from '@/components/ProjectItem'
+import { TypographyH1 } from '@/components/ui/Typography'
+import { createProject } from '@/lib/actions'
+import { SubmitButton } from './ui/SubmitButton'
 
 
 const projects = [
@@ -19,16 +21,18 @@ const projects = [
 
 
 const ProjectList = () => {
+
   return (
     <main className="flex flex-col">
       <div className='flex items-center justify-between mb-6'>
         <TypographyH1>Projects</TypographyH1>
 
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-
-          New
-        </Button>
+        <form action={createProject}>
+          <SubmitButton>
+            <Plus className="mr-2 h-4 w-4" />
+            New
+          </SubmitButton>
+        </form>
       </div>
 
       <ul className='w-full flex flex-col'>

@@ -75,7 +75,7 @@ const ProjectItem: FC<Props> = ({ project }) => {
               </DropdownMenuContent>
             </DropdownMenu>
             <DialogContent>
-              {projectAction === ProjectActions.delete && <DeleteProject />}
+              {projectAction === ProjectActions.delete && <DeleteProject projectId={project._id} />}
               {projectAction === ProjectActions.update && <RenameProject project={project} />}
             </DialogContent>
           </Dialog>

@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { FC } from 'react'
 
 import {
   DialogDescription,
@@ -7,8 +8,15 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { deleteProject } from '@/lib/actions'
 
-const DeleteProject = () => {
+interface Props {
+  projectId: string
+}
+
+const DeleteProject: FC<Props> = ({ projectId }) => {
+  const deleteProjectWithId = deleteProject.bind(null, projectId)
+
   return (
     <>
       <DialogHeader>
@@ -19,7 +27,9 @@ const DeleteProject = () => {
         </DialogDescription>
       </DialogHeader>
       <DialogFooter>
-        <Button variant='destructive' type="submit">Confirm</Button>
+        <form action={deleteProjectWithId}>
+          <Button variant='destructive' type="submit">Confirm</Button>
+        </form>
       </DialogFooter>
     </>
   )
