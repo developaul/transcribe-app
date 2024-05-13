@@ -14,9 +14,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import {
   TypographyP,
   TypographySmall
 } from '@/components/ui/Typography'
+import { Button } from '@/components/ui/button'
+import { PropagationStopper } from '@/components/ui/PropagationStopper'
 
 dayjs.extend(relativeTime)
 
@@ -39,17 +50,40 @@ const ProjectItem: FC<Props> = ({ project }) => {
             <TypographySmall>{dayjs(createdAt).fromNow()}</TypographySmall>
           </div>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <EllipsisVertical />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>Rename</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <PropagationStopper>
+          <Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <EllipsisVertical />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Rename</DropdownMenuItem>
+
+                <DialogTrigger asChild>
+                  <DropdownMenuItem>
+                    <span>Delete</span>
+                  </DropdownMenuItem>
+                </DialogTrigger>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Delete Dialog */}
+            <DialogContent  >
+              <DialogHeader>
+                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. Are you sure you want to permanently
+                  delete this project from our servers?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant='destructive' type="submit">Confirm</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </PropagationStopper>
       </li>
-    </Link>
+    </Link >
   )
 }
 
