@@ -21,7 +21,7 @@ const projects = [
 const ProjectList = () => {
   return (
     <main className="flex flex-col">
-      <div className='flex items-center justify-between my-6'>
+      <div className='flex items-center justify-between mb-6'>
         <TypographyH1>Projects</TypographyH1>
 
         <Button>
@@ -31,7 +31,7 @@ const ProjectList = () => {
         </Button>
       </div>
 
-      <ul className='w-full flex flex-col gap-4'>
+      <ul className='w-full flex flex-col'>
         {projects.map((project) => <ProjectItem key={project._id} project={project} />)}
       </ul>
     </main>

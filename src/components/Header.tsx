@@ -1,16 +1,11 @@
 "use client"
 
-import React from 'react'
 import { useTheme } from 'next-themes'
-import { Check, LogOut, Menu, Settings, SunMoon, UserPlus } from 'lucide-react'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Check, LogOut, Settings, SunMoon, Undo2 } from 'lucide-react'
+import { useParams } from 'next/navigation'
+import Link from 'next/link'
+import clsx from 'clsx'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,8 +19,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { TypographyLarge, TypographySmall } from '@/components/ui/Typography'
+
 import { getAvatarFallbackName } from '@/lib/user'
-import { TypographyLarge, TypographySmall } from './ui/Typography'
 import { Theme } from '@/lib/theme'
 
 const user = {
@@ -37,25 +33,17 @@ const user = {
 const Header = () => {
   const { setTheme, theme } = useTheme()
 
+  const { projectId } = useParams<{ projectId: string }>()
+
   const avatarFallbackName = getAvatarFallbackName(user.fullName)
 
   return (
-    <header className='flex items-center justify-between sticky top-0 pt-8'>
-      <Sheet>
-        <SheetTrigger>
-          <Menu />
-        </SheetTrigger>
-        <SheetContent side='left'>
-          <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your account
-              and remove your data from our servers.
-            </SheetDescription>
-          </SheetHeader>
-
-        </SheetContent>
-      </Sheet>
+    <header className={clsx('flex items-center justify-end sticky top-0 pt-8 pb-6', { 'justify-between': Boolean(projectId) })}>
+      {Boolean(projectId) && (
+        <Link href={'/workspace'}>
+          <Undo2 />
+        </Link>
+      )}
 
       <DropdownMenu>
         <DropdownMenuTrigger>

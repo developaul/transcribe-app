@@ -1,11 +1,8 @@
-import Header from "@/components/Header";
-import ProjectList from "@/components/ProjectList";
 
-export default function Home() {
+export default function WorkSpace() {
   return (
     <div className="container flex flex-col">
-      <Header />
-      <ProjectList />
+      Aqui ira una prueba free del producto
     </div>
   );
 }
