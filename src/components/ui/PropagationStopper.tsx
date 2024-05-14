@@ -2,8 +2,8 @@ const preventDefaultPropagtion = (
   e: React.MouseEvent<HTMLElement, MouseEvent>,
 ) => {
   e.nativeEvent.stopImmediatePropagation()
-  e.nativeEvent.preventDefault()
-  e.preventDefault()
+  // e.nativeEvent.preventDefault()
+  // e.preventDefault()
   e.stopPropagation()
 }
 
@@ -27,4 +27,4 @@ const PropagationStopper = ({
   )
 }
 
-export { PropagationStopper }
+export default PropagationStopper

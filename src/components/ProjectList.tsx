@@ -2,9 +2,8 @@
 import { Plus } from 'lucide-react'
 import ProjectItem from '@/components/ProjectItem'
 import { TypographyH1 } from '@/components/ui/Typography'
+import SubmitButton from '@/components/ui/SubmitButton'
 import { createProject } from '@/lib/actions'
-import { SubmitButton } from './ui/SubmitButton'
-
 
 const projects = [
   {
