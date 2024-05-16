@@ -7,7 +7,7 @@ export interface IProject {
   transcription?: Transcription
 }
 
-interface ProjectFile {
+export interface ProjectFile {
   url: string
   extension: string
 }

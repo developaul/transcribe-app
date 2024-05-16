@@ -6,11 +6,14 @@ import PlayerContext from '@/context/Player/context'
 import { Slider } from "@/components/ui/slider"
 import { useForceUpdate } from '@/lib/hooks'
 
+import { ProjectFile } from '@/interfaces/project'
+
 interface Props {
   audio: RefObject<HTMLAudioElement>
+  file?: ProjectFile
 }
 
-const AudioControl = ({ audio }: Props) => {
+const AudioControl = ({ audio, file }: Props) => {
   const { wordsRefs } = useContext(PlayerContext)
 
   const [currentTime, setCurrentTime] = useState(0)
@@ -67,6 +70,7 @@ const AudioControl = ({ audio }: Props) => {
         value={[currentTime]}
         max={audio?.current?.duration ?? 0}
         min={0}
+        disabled={!file}
         className="w-[400px]"
         onValueChange={(value) => {
           const [newCurrentTime] = value

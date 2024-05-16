@@ -27,7 +27,7 @@ const ProjectPage: NextPage<Props> = async ({ params }) => {
 
         {project.transcription ? <Transcription transcription={project.transcription} /> : <UploadFile />}
 
-        <Player />
+        <Player file={project.file} />
       </div>
     </PlayerProvider>
   );
