@@ -36,7 +36,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t-2 py-8 gap-6'>
+    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t border-t-black dark:border-t-white py-8 gap-6'>
       <div className='flex gap-2'>
         <Button variant='ghost' onClick={handleSkipBack}>
           <SkipBack />

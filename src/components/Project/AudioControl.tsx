@@ -1,9 +1,10 @@
 'use client'
 
-import { RefObject, useContext, useEffect, useState } from 'react'
+import { RefObject, useContext, useEffect, useState, } from 'react'
 
 import PlayerContext from '@/context/Player/context'
 import { Slider } from "@/components/ui/slider"
+import { useForceUpdate } from '@/lib/hooks'
 
 interface Props {
   audio: RefObject<HTMLAudioElement>
@@ -14,8 +15,12 @@ const AudioControl = ({ audio }: Props) => {
 
   const [currentTime, setCurrentTime] = useState(0)
 
+  const forceUpdate = useForceUpdate()
+
   useEffect(() => {
     audio.current?.addEventListener('timeupdate', handleTimeUpdate)
+
+    forceUpdate()
 
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,11 +38,11 @@ const AudioControl = ({ audio }: Props) => {
       const endTime = Number(wordRef.dataset.end)
 
       if (newCurrentTimeInMilisecons >= startTime && newCurrentTimeInMilisecons <= endTime) {
-        wordRef.classList.add('bg-blue-200')
+        wordRef.classList.add('bg-blue-200', 'dark:bg-blue-500')
         return
       }
 
-      wordRef.classList.remove('bg-blue-200')
+      wordRef.classList.remove('bg-blue-200', 'dark:bg-blue-500')
     })
 
     setCurrentTime(newCurrentTime)

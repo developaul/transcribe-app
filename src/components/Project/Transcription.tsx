@@ -21,7 +21,7 @@ const Transcription: FC<Props> = ({ transcription }) => {
   const { wordsRefs } = useContext(PlayerContext)
 
   return (
-    <div>
+    <div className='flex flex-wrap'>
       {
         transcription.words.map(({ text, start, end }, index) => {
           return (
