@@ -26,10 +26,10 @@ const ProjectPage: NextPage<Props> = async ({ params }) => {
 
         <TypographyP className="mb-8">Easily transcribe your audio files with our intuitive interface</TypographyP>
 
-        {project.fileUrl ? <Transcription /> : <UploadFile />}
+        {project.fileUrl ? <Transcription transcription={project.transcription} /> : <UploadFile />}
 
         <Player />
-      </div >
+      </div>
     </PlayerProvider>
   );
 }

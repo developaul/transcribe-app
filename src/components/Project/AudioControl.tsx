@@ -1,4 +1,8 @@
-import { RefObject, useEffect, useState } from 'react'
+'use client'
+
+import { RefObject, useContext, useEffect, useState } from 'react'
+
+import PlayerContext from '@/context/Player/context'
 import { Slider } from "@/components/ui/slider"
 
 interface Props {
@@ -6,6 +10,8 @@ interface Props {
 }
 
 const AudioControl = ({ audio }: Props) => {
+  const { wordsRefs } = useContext(PlayerContext)
+
   const [currentTime, setCurrentTime] = useState(0)
 
   useEffect(() => {
@@ -18,9 +24,23 @@ const AudioControl = ({ audio }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleTimeUpdate = () => {
-    // TODO: Update global state
-    setCurrentTime(audio.current?.currentTime ?? 0)
+  const handleTimeUpdate = (event: any) => {
+    const newCurrentTime = event.target.currentTime ?? 0
+    const newCurrentTimeInMilisecons = Number((newCurrentTime * 1000).toFixed(0))
+
+    wordsRefs.current.forEach((wordRef) => {
+      const startTime = Number(wordRef.dataset.start)
+      const endTime = Number(wordRef.dataset.end)
+
+      if (newCurrentTimeInMilisecons >= startTime && newCurrentTimeInMilisecons <= endTime) {
+        wordRef.classList.add('bg-blue-200')
+        return
+      }
+
+      wordRef.classList.remove('bg-blue-200')
+    })
+
+    setCurrentTime(newCurrentTime)
   }
 
   const formatTime = (time: number) => {

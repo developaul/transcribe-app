@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, PropsWithChildren, useState } from 'react'
+import { FC, PropsWithChildren, useRef, useState } from 'react'
 
 import PlayerContext from './context'
 
@@ -17,6 +17,7 @@ const initialState = {
 }
 
 const Provider: FC<PropsWithChildren> = ({ children }) => {
+  const wordsRefs = useRef<HTMLSpanElement[]>([])
 
   const [state, setState] = useState<State>(initialState)
 
@@ -26,7 +27,8 @@ const Provider: FC<PropsWithChildren> = ({ children }) => {
     <PlayerContext.Provider
       value={{
         ...state,
-        setIsPlaying
+        setIsPlaying,
+        wordsRefs
       }}>
       {children}
     </PlayerContext.Provider>
