@@ -36,21 +36,23 @@ const Footer = () => {
   }
 
   return (
-    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t border-t-black dark:border-t-white py-8 gap-6'>
-      <div className='flex gap-2'>
-        <Button variant='ghost' onClick={handleSkipBack}>
-          <SkipBack />
-        </Button>
-        <Button variant='ghost' onClick={handleClick}>
-          {isPlaying ? <Pause /> : <Play />}
-        </Button>
-        <Button variant='ghost' onClick={handleSkipForward} >
-          <SkipForward />
-        </Button>
-      </div>
-      <div className='w-96'>
-        <AudioControl audio={audioRef} />
-        <audio src={'/audio.mp3'} ref={audioRef} />
+    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t border-t-black dark:border-t-white py-2 gap-1'>
+      <div className='container'>
+        <div className='flex items-center justify-center gap-2'>
+          <Button variant='ghost' onClick={handleSkipBack}>
+            <SkipBack />
+          </Button>
+          <Button variant='ghost' onClick={handleClick}>
+            {isPlaying ? <Pause /> : <Play />}
+          </Button>
+          <Button variant='ghost' onClick={handleSkipForward} >
+            <SkipForward />
+          </Button>
+        </div>
+        <div className='flex items-center justify-center w-full'>
+          <AudioControl audio={audioRef} />
+          <audio className='hidden' src={'/audio.mp3'} ref={audioRef} />
+        </div>
       </div>
     </footer>
   )

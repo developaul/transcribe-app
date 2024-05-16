@@ -60,7 +60,7 @@ const AudioControl = ({ audio }: Props) => {
   const duration = audio?.current?.duration ?? 0
 
   return (
-    <div className="flex gap-x-3 text-xs pt-2">
+    <div className="w-full flex items-center justify-center gap-x-3 text-xs pt-2">
       <span className="opacity-50 w-12 text-right">{formatTime(currentTime)}</span>
 
       <Slider
