@@ -9,8 +9,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Button } from '@/components/ui/button'
-import { deleteProject } from '@/lib/actions'
 import { preventDefault } from '@/lib/prevent'
+
+import { deleteProject } from '@/server/routes/project'
 
 interface Props {
   projectId: string
@@ -23,10 +24,7 @@ const DeleteAction: FC<Props> = ({ projectId, onClose }) => {
   const handleDelete = async () => {
     setIsLoading(true)
 
-    const result = await deleteProject(projectId)
-    console.log("🚀 ~ handleDelete ~ result:", result)
-
-    setIsLoading(false)
+    await deleteProject(projectId)
     onClose()
   }
 

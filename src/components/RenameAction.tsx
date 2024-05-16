@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from 'zod'
 
+import { renameProject } from '@/server/routes/project'
+
 import {
   DialogContent,
   DialogDescription,
@@ -23,17 +25,19 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 
-import { renameProject } from '@/lib/actions'
 import { projectSchema } from '@/lib/schemas'
 import { preventDefault } from '@/lib/prevent'
 
+import { IProject } from '@/interfaces/project'
+
+
 interface Props {
-  project: any
+  project: IProject
   onClose: () => void
 }
 
 const RenameAction: FC<Props> = ({ project, onClose }) => {
-  const { name } = project
+  const { name, _id } = project
 
   const form = useForm<z.infer<typeof projectSchema>>({
     resolver: zodResolver(projectSchema),
@@ -43,7 +47,7 @@ const RenameAction: FC<Props> = ({ project, onClose }) => {
   const { isSubmitting, isDirty } = form.formState
 
   const onSubmit = async ({ name }: z.infer<typeof projectSchema>) => {
-    await renameProject(name)
+    await renameProject({ projectId: _id, name })
     onClose()
   }
 

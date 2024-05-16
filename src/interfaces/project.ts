@@ -1,5 +1,5 @@
 export interface IProject {
-  _id: String
+  _id: string
   name?: string
   createdAt: Date
   createdById?: string

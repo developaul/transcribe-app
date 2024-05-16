@@ -4,7 +4,7 @@ import connectMongo from "@/server/connections/mongo"
 import ProjectModel from "@/server/models/Project"
 import { IProject } from '@/interfaces/project'
 
-interface UpdateNameArgs {
+export interface UpdateNameArgs {
   projectId: string
   name: string
 }
@@ -14,7 +14,6 @@ class ProjectController {
     await connectMongo()
 
     const project: HydratedDocument<IProject> = new ProjectModel()
-    console.log("🚀 ~ ProjectController ~ create ~ project:", project)
     await project.save()
 
     return project
@@ -35,7 +34,7 @@ class ProjectController {
   async getProjects(): Promise<IProject[]> {
     await connectMongo()
 
-    const projects: HydratedDocument<IProject[]> = await ProjectModel.find().lean()
+    const projects: HydratedDocument<IProject[]> = await ProjectModel.find().sort({ createdAt: -1 }).lean()
 
     return projects
   }

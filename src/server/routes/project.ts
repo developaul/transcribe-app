@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 
-import projectController from "@/server/controllers/project"
+import projectController, { UpdateNameArgs } from "@/server/controllers/project"
 
 import { IProject } from "@/interfaces/project"
 
@@ -19,4 +19,13 @@ export const getProjects = async (): Promise<IProject[]> => {
 
 export const deleteProject = async (projectId: string) => {
   await projectController.delete(projectId)
+
+  revalidatePath('/workspace')
+}
+
+export const renameProject = async ({ projectId, name }: UpdateNameArgs) => {
+
+  await projectController.updateName({ projectId, name })
+
+  revalidatePath('/workspace')
 }
