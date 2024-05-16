@@ -14,6 +14,7 @@ class ProjectController {
     await connectMongo()
 
     const project: HydratedDocument<IProject> = new ProjectModel()
+    console.log("🚀 ~ ProjectController ~ create ~ project:", project)
     await project.save()
 
     return project
@@ -40,4 +41,6 @@ class ProjectController {
   }
 }
 
-export default ProjectController
+const projectController = new ProjectController()
+
+export default projectController

@@ -1,5 +1,6 @@
-import { IProject } from "@/interfaces/project";
 import { models, model, Schema, Model } from "mongoose";
+
+import { IProject } from "@/interfaces/project";
 
 type IProjectModel = Model<IProject>
 

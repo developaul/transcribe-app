@@ -1,6 +1,7 @@
+'use client'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, Key } from 'react'
 import { Mic } from 'lucide-react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -9,13 +10,14 @@ import {
   TypographyP,
   TypographySmall
 } from '@/components/ui/Typography'
-import { ProjectActions } from '@/lib/project'
-import ProjectMenuOptions from './ProjectMenuOptions'
+import MenuOptions from '@/components/Project/MenuOptions'
+
+import { IProject } from '@/interfaces/project'
 
 dayjs.extend(relativeTime)
 
 interface Props {
-  project: any
+  project: IProject
 }
 
 const ProjectItem: FC<Props> = ({ project }) => {
@@ -25,7 +27,7 @@ const ProjectItem: FC<Props> = ({ project }) => {
 
   return (
     <Link className='p-4 ease-in-out duration-300 hover:bg-gray-50 dark:hover:bg-zinc-800' href={`${pathname}/${_id}`}>
-      <li className='flex items-center justify-between cursor-pointer' key={_id} >
+      <li className='flex items-center justify-between cursor-pointer' key={_id as Key} >
         <div className='flex items-center gap-4'>
           <Mic className='w-8 h-8' />
           <div>
@@ -33,7 +35,7 @@ const ProjectItem: FC<Props> = ({ project }) => {
             <TypographySmall>{dayjs(createdAt).fromNow()}</TypographySmall>
           </div>
         </div>
-        <ProjectMenuOptions project={project} />
+        <MenuOptions project={project} />
       </li>
     </Link >
   )

@@ -25,7 +25,7 @@ interface Props {
   project: any
 }
 
-const ProjectMenuOptions: FC<Props> = ({ project }) => {
+const MenuOptions: FC<Props> = ({ project }) => {
   const [actionState, setActionState] = useState<ProjectActions | null>(null)
 
   const handleOpen = (projectAction: ProjectActions) => () =>
@@ -66,4 +66,4 @@ const ProjectMenuOptions: FC<Props> = ({ project }) => {
   )
 }
 
-export default ProjectMenuOptions
+export default MenuOptions

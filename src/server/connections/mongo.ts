@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = process.env.MONGO_URL;
+const mongoURI = process.env.MONGO_URI;
+
 const cached: { connection?: typeof mongoose; promise?: Promise<typeof mongoose> } = {};
 
 const connectMongo = async () => {
-  if (!MONGO_URI)
+  if (!mongoURI)
     throw new Error('Please define the MONGO_URI environment variable inside .env.local')
 
   if (cached.connection)
@@ -12,7 +13,7 @@ const connectMongo = async () => {
 
   if (!cached.promise) {
     const opts = { bufferCommands: false }
-    cached.promise = mongoose.connect(MONGO_URI, opts)
+    cached.promise = mongoose.connect(mongoURI, opts)
   }
 
   try {
