@@ -38,6 +38,16 @@ class ProjectController {
 
     return projects
   }
+
+  async getProjectById(projectId: string): Promise<IProject> {
+    await connectMongo()
+
+    const project: HydratedDocument<IProject> | null = await ProjectModel.findById(projectId).lean()
+
+    if (!project) throw new Error('Project not found')
+
+    return project
+  }
 }
 
 const projectController = new ProjectController()

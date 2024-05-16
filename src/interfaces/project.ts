@@ -3,4 +3,24 @@ export interface IProject {
   name?: string
   createdAt: Date
   createdById?: string
+  file?: ProjectFile
+  transcription?: Transcription
+}
+
+interface ProjectFile {
+  url: string
+  extension: string
+}
+
+interface Transcription {
+  text: string,
+  words: TranscriptionWord[]
+}
+
+interface TranscriptionWord {
+  text: string,
+  start: number,
+  end: number,
+  confidence: number,
+  speaker: any
 }

@@ -1,5 +1,7 @@
 import { NextPage } from "next";
 
+import { getProjectById } from "@/server/routes/project";
+
 import { Input } from "@/components/ui/input"
 import { TypographyP } from "@/components/ui/Typography";
 
@@ -8,12 +10,9 @@ import Player from "@/components/Project/Player";
 import Transcription from "@/components/Project/Transcription";
 import PlayerProvider from "@/context/Player/Provider";
 
-import { getProjectById } from "@/lib/actions";
 
 interface Props {
-  params: {
-    projectId: string
-  }
+  params: { projectId: string }
 }
 
 const ProjectPage: NextPage<Props> = async ({ params }) => {
@@ -26,7 +25,7 @@ const ProjectPage: NextPage<Props> = async ({ params }) => {
 
         <TypographyP className="mb-8">Easily transcribe your audio files with our intuitive interface</TypographyP>
 
-        {project.fileUrl ? <Transcription transcription={project.transcription} /> : <UploadFile />}
+        {project.transcription ? <Transcription transcription={project.transcription} /> : <UploadFile />}
 
         <Player />
       </div>

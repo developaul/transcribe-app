@@ -17,6 +17,11 @@ export const getProjects = async (): Promise<IProject[]> => {
   return JSON.parse(JSON.stringify(projects))
 }
 
+export const getProjectById = async (projectId: string): Promise<IProject> => {
+  const project = await projectController.getProjectById(projectId)
+  return JSON.parse(JSON.stringify(project))
+}
+
 export const deleteProject = async (projectId: string) => {
   await projectController.delete(projectId)
 
