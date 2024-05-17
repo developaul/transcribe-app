@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button'
 import PlayerContext from '@/context/Player/context'
 import AudioControl from '@/components/Project/AudioControl'
 
-import { ProjectFile } from '@/interfaces/project'
+import { IFile } from '@/interfaces/file'
 
 interface Props {
-  file?: ProjectFile
+  file?: IFile
 }
 
 const Footer: FC<Props> = ({ file }) => {
@@ -42,7 +42,7 @@ const Footer: FC<Props> = ({ file }) => {
   }
 
   return (
-    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t border-t-black dark:border-t-white py-2 gap-1'>
+    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t bg-white dark:bg-dark border-t-black dark:border-t-white py-2 gap-1'>
       <div className='container'>
         <div className='flex items-center justify-center gap-2'>
           <Button disabled={!file} variant='ghost' onClick={handleSkipBack}>

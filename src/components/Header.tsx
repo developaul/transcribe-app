@@ -38,7 +38,7 @@ const Header = () => {
   const avatarFallbackName = getAvatarFallbackName(user.fullName)
 
   return (
-    <header className={clsx('flex items-center justify-end sticky top-0 pt-8 pb-6', { 'justify-between': Boolean(projectId) })}>
+    <header className={clsx('flex items-center justify-end sticky top-0 pt-8 pb-6 bg:white dark:bg-dark', { 'justify-between': Boolean(projectId) })}>
       {Boolean(projectId) && (
         <Link href={'/workspace'}>
           <Undo2 />

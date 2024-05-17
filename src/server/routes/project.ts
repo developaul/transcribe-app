@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache"
 
-import projectController, { UpdateNameArgs } from "@/server/controllers/project"
+import projectController, { UpdateFileArgs, UpdateNameArgs } from "@/server/controllers/project"
+import assemblyaiController from "@/server/controllers/assemblyai"
 
 import { IProject } from "@/interfaces/project"
 
@@ -29,8 +30,17 @@ export const deleteProject = async (projectId: string) => {
 }
 
 export const renameProject = async ({ projectId, name }: UpdateNameArgs) => {
-
   await projectController.updateName({ projectId, name })
 
   revalidatePath('/workspace')
+}
+
+export const transcribeFile = async ({ projectId, file }: UpdateFileArgs) => {
+  await projectController.updateFile({ projectId, file })
+
+  const transcript = await assemblyaiController.transcribe(file.url)
+
+  await projectController.updateTranscript({ projectId, transcript })
+
+  revalidatePath(`/workspace/${projectId}`)
 }

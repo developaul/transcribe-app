@@ -54,7 +54,7 @@ const NameInput: FC<Props> = ({ projectId, name }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Name Project</FormLabel>
               <FormControl>
                 <Input placeholder={"Untitled"} {...field} />
               </FormControl>

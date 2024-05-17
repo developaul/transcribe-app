@@ -6,11 +6,11 @@ import PlayerContext from '@/context/Player/context'
 import { Slider } from "@/components/ui/slider"
 import { useForceUpdate } from '@/lib/hooks'
 
-import { ProjectFile } from '@/interfaces/project'
+import { IFile } from '@/interfaces/file'
 
 interface Props {
   audio: RefObject<HTMLAudioElement>
-  file?: ProjectFile
+  file?: IFile
 }
 
 const AudioControl = ({ audio, file }: Props) => {
@@ -36,7 +36,9 @@ const AudioControl = ({ audio, file }: Props) => {
     const newCurrentTime = event.target.currentTime ?? 0
     const newCurrentTimeInMilisecons = Number((newCurrentTime * 1000).toFixed(0))
 
-    wordsRefs.current.forEach((wordRef) => {
+    for (const key in wordsRefs.current) {
+      const wordRef = wordsRefs.current[key]
+
       const startTime = Number(wordRef.dataset.start)
       const endTime = Number(wordRef.dataset.end)
 
@@ -46,7 +48,7 @@ const AudioControl = ({ audio, file }: Props) => {
       }
 
       wordRef.classList.remove('bg-blue-200', 'dark:bg-blue-500')
-    })
+    }
 
     setCurrentTime(newCurrentTime)
   }

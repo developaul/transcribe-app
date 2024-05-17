@@ -1,26 +1,23 @@
+import { IFile } from "./file"
+
 export interface IProject {
   _id: string
   name: string
   createdAt: Date
   createdById?: string
-  file?: ProjectFile
-  transcription?: Transcription
+  file?: IFile
+  transcription?: ITranscription
 }
 
-export interface ProjectFile {
-  url: string
-  extension: string
+export interface ITranscription {
+  utterances: IUtterance[];
 }
 
-interface Transcription {
-  text: string,
-  words: TranscriptionWord[]
-}
-
-interface TranscriptionWord {
-  text: string,
-  start: number,
-  end: number,
-  confidence: number,
-  speaker: any
+export interface IUtterance {
+  confidence: number;
+  end: number;
+  speaker: string;
+  start: number;
+  text: string;
+  words?: IUtterance[];
 }

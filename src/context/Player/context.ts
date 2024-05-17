@@ -6,7 +6,7 @@ import { State } from "./Provider";
 
 interface PlayerContextArgs extends State {
   setIsPlaying: (isPlaying: boolean) => void
-  wordsRefs: MutableRefObject<HTMLSpanElement[]>
+  wordsRefs: MutableRefObject<Record<string, HTMLSpanElement>>
 }
 
 const PlayerContext = createContext<PlayerContextArgs>({} as PlayerContextArgs)

@@ -19,10 +19,10 @@ const ProjectPage: NextPage<Props> = async ({ params }) => {
 
   return (
     <PlayerProvider>
-      <div className="flex flex-col">
+      <div className="flex flex-col mb-28">
         <NameInput projectId={project._id} name={project.name} />
 
-        {project.transcription ? <Transcription transcription={project.transcription} /> : <UploadFile />}
+        {project.transcription ? <Transcription transcription={project.transcription} /> : <UploadFile projectId={project._id} />}
 
         <Player file={project.file} />
       </div>

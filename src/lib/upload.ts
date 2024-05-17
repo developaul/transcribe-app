@@ -16,7 +16,7 @@ export const uploadFile = async ({ file }: UploadFileArgs) => {
     method: 'PUT',
     data: file,
     headers: {
-      "Content-Type": file?.type || "",
+      "Content-Type": file?.type ?? "",
     }
   })
 

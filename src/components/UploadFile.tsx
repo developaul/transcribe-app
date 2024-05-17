@@ -1,19 +1,26 @@
 'use client'
 
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, FC, useRef } from "react";
 import { UploadIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { transcribeFile } from "@/server/routes/project";
+
 import { TypographyP } from "@/components/ui/Typography";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
 import { uploadFile } from "@/lib/upload";
 
-const UploadFile = () => {
+interface Props {
+  projectId: string
+}
+
+const UploadFile: FC<Props> = ({ projectId }) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const handleOpenFileSystem = () => inputRef.current?.click()
 
-  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadAndTranscribe = async (event: ChangeEvent<HTMLInputElement>) => {
     try {
       const { files } = event.target
 
@@ -23,8 +30,13 @@ const UploadFile = () => {
 
       const fileUrl = await uploadFile({ file })
 
-      console.log("🚀 ~ handleChange ~ fileUrl:", fileUrl)
-      // updateProject
+      await transcribeFile({
+        projectId,
+        file: {
+          url: fileUrl,
+          extension: file?.type ?? ''
+        }
+      })
     } catch (error) {
       // Todo: notify error
       console.log('error', error)
@@ -37,7 +49,7 @@ const UploadFile = () => {
         <UploadIcon className="h-10 w-10" />
         <TypographyP className="text-center" >Drag and drop your audio file or</TypographyP>
         <Button onClick={handleOpenFileSystem} variant="outline">Select file</Button>
-        <Input onChange={handleChange} accept=".mp3,audio/*" className="hidden" ref={inputRef} type="file" />
+        <Input onChange={handleUploadAndTranscribe} accept=".mp3,audio/*" className="hidden" ref={inputRef} type="file" />
       </div>
     </div>
   )
