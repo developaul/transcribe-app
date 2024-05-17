@@ -1,6 +1,6 @@
 export interface IProject {
   _id: string
-  name?: string
+  name: string
   createdAt: Date
   createdById?: string
   file?: ProjectFile

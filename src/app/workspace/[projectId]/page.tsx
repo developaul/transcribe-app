@@ -1,14 +1,13 @@
+
 import { NextPage } from "next";
 
 import { getProjectById } from "@/server/routes/project";
-
-import { Input } from "@/components/ui/input"
-import { TypographyP } from "@/components/ui/Typography";
 
 import UploadFile from "@/components/UploadFile";
 import Player from "@/components/Project/Player";
 import Transcription from "@/components/Project/Transcription";
 import PlayerProvider from "@/context/Player/Provider";
+import NameInput from "@/components/Project/NameInput";
 
 
 interface Props {
@@ -21,9 +20,7 @@ const ProjectPage: NextPage<Props> = async ({ params }) => {
   return (
     <PlayerProvider>
       <div className="flex flex-col">
-        <Input placeholder="Untitled" defaultValue={project.name} />
-
-        <TypographyP className="mb-8">Easily transcribe your audio files with our intuitive interface</TypographyP>
+        <NameInput projectId={project._id} name={project.name} />
 
         {project.transcription ? <Transcription transcription={project.transcription} /> : <UploadFile />}
 
