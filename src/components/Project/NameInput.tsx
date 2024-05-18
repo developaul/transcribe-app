@@ -24,7 +24,6 @@ interface Props {
 }
 
 const NameInput: FC<Props> = ({ projectId, name }) => {
-
   const form = useForm<z.infer<typeof projectSchema>>({
     resolver: zodResolver(projectSchema),
     defaultValues: { name },

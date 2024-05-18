@@ -24,7 +24,7 @@ const ProjectPage: NextPage<Props> = async ({ params }) => {
 
       <Suspense fallback={<FooterSkeleton />}>
         <Footer projectId={projectId} />
-      </Suspense>
+      </Suspense >
     </>
   );
 }
