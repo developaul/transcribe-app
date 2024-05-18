@@ -48,7 +48,7 @@ const NameInput: FC<Props> = ({ projectId, name }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(() => { })} className="space-y-8 mb-8">
+      <form onSubmit={form.handleSubmit(() => { })} className="container">
         <FormField
           control={form.control}
           name="name"

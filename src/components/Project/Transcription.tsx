@@ -13,7 +13,7 @@ const Transcription: FC<Props> = ({ transcription }) => {
   const { wordsRefs } = useContext(PlayerContext)
 
   return (
-    <section className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 mb-8'>
       {transcription.utterances.map(({ speaker, start, end, words, }) => {
         const key = `${speaker}:${start}-${end}`
 
@@ -44,7 +44,7 @@ const Transcription: FC<Props> = ({ transcription }) => {
           </div>
         )
       })}
-    </section>
+    </div>
   )
 }
 

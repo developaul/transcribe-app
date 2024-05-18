@@ -14,10 +14,12 @@ const TranscriptionWrapper: FC<Props> = async ({ projectId }) => {
   const { _id, name, transcription } = await getProjectById(projectId)
 
   return (
-    <main className="flex-1 overflow-y-scroll">
-      <section className="container">
-        <NameInput projectId={_id} name={name} />
-        {transcription ? <Transcription transcription={transcription} /> : <UploadFile projectId={_id} />}
+    <main className="flex flex-col flex-1 min-h-0">
+      <NameInput projectId={_id} name={name} />
+      <section className='flex-1 min-h-0 overflow-y-scroll mt-8'>
+        <div className='container'>
+          {transcription ? <Transcription transcription={transcription} /> : <UploadFile projectId={_id} />}
+        </div>
       </section>
     </main>
   )
