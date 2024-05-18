@@ -6,18 +6,15 @@ import PlayerContext from './context'
 
 export interface State {
   isPlaying: boolean,
-  currentAudio: string,
-  volume: number,
 }
 
 const initialState = {
   isPlaying: false,
-  currentAudio: '',
-  volume: 1,
 }
 
+// Only responsible for the player state
 const Provider: FC<PropsWithChildren> = ({ children }) => {
-  const wordsRefs = useRef<HTMLSpanElement[]>([])
+  const wordsRefs = useRef<Record<string, HTMLSpanElement>>({})
 
   const [state, setState] = useState<State>(initialState)
 

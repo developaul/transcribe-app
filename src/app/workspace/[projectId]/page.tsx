@@ -1,32 +1,31 @@
-
+import { Suspense } from "react";
 import { NextPage } from "next";
 
-import { getProjectById } from "@/server/routes/project";
-
-import UploadFile from "@/components/UploadFile";
-import Player from "@/components/Project/Player";
-import Transcription from "@/components/Project/Transcription";
-import PlayerProvider from "@/context/Player/Provider";
-import NameInput from "@/components/Project/NameInput";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Project/Footer";
+import FooterSkeleton from "@/components/Project/Skeleton/FooterSkeleton";
+import TranscriptionWrapper from "@/components/Project/TranscriptionWrapper";
+import TranscriptionWrapperSkeleton from "@/components/Project/Skeleton/TranscriptionWrapperSkeleton";
 
 interface Props {
   params: { projectId: string }
 }
 
 const ProjectPage: NextPage<Props> = async ({ params }) => {
-  const project = await getProjectById(params.projectId)
+  const { projectId } = params
 
   return (
-    <PlayerProvider>
-      <div className="flex flex-col mb-28">
-        <NameInput projectId={project._id} name={project.name} />
+    <>
+      <Header />
 
-        {project.transcription ? <Transcription transcription={project.transcription} /> : <UploadFile projectId={project._id} />}
+      <Suspense fallback={<TranscriptionWrapperSkeleton />}>
+        <TranscriptionWrapper projectId={projectId} />
+      </Suspense>
 
-        <Player file={project.file} />
-      </div>
-    </PlayerProvider>
+      <Suspense fallback={<FooterSkeleton />}>
+        <Footer projectId={projectId} />
+      </Suspense>
+    </>
   );
 }
 export default ProjectPage

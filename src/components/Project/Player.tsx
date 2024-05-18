@@ -42,25 +42,23 @@ const Footer: FC<Props> = ({ file }) => {
   }
 
   return (
-    <footer className='flex flex-col justify-center items-center w-full fixed bottom-0 left-0 border-t bg-white dark:bg-dark border-t-black dark:border-t-white py-2 gap-1'>
-      <div className='container'>
-        <div className='flex items-center justify-center gap-2'>
-          <Button disabled={!file} variant='ghost' onClick={handleSkipBack}>
-            <SkipBack />
-          </Button>
-          <Button disabled={!file} variant='ghost' onClick={handleClick}>
-            {isPlaying ? <Pause /> : <Play />}
-          </Button>
-          <Button disabled={!file} variant='ghost' onClick={handleSkipForward} >
-            <SkipForward />
-          </Button>
-        </div>
-        <div className='flex items-center justify-center w-full'>
-          <AudioControl audio={audioRef} file={file} />
-          <audio className='hidden' src={file?.url ?? ''} ref={audioRef} />
-        </div>
+    <div className='container'>
+      <div className='flex items-center justify-center gap-2'>
+        <Button disabled={!file} variant='ghost' onClick={handleSkipBack}>
+          <SkipBack />
+        </Button>
+        <Button disabled={!file} variant='ghost' onClick={handleClick}>
+          {isPlaying ? <Pause /> : <Play />}
+        </Button>
+        <Button disabled={!file} variant='ghost' onClick={handleSkipForward} >
+          <SkipForward />
+        </Button>
       </div>
-    </footer>
+      <div className='flex items-center justify-center w-full'>
+        <AudioControl audio={audioRef} file={file} />
+        <audio className='hidden' src={file?.url ?? ''} ref={audioRef} />
+      </div>
+    </div>
   )
 }
 
