@@ -1,32 +1,78 @@
 'use client'
 
-import { ChangeEvent, FC, useRef } from "react";
-import { UploadIcon } from "lucide-react";
+import { FC } from "react";
+import { Captions, FileCheck2Icon } from "lucide-react";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { transcribeFile } from "@/server/routes/project";
 
-import { TypographyP } from "@/components/ui/Typography";
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Dropzone from "@/components/ui/Dropzone";
 
 import { uploadFile } from "@/lib/upload";
+import { allowedTypes } from "@/lib/file";
 
 interface Props {
   projectId: string
 }
 
+interface FileForm {
+  file: null | File
+}
+
 const UploadFile: FC<Props> = ({ projectId }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  const { toast } = useToast()
 
-  const handleOpenFileSystem = () => inputRef.current?.click()
+  const methods = useForm<FileForm>({
+    defaultValues: { file: null },
+    shouldFocusError: true,
+    shouldUnregister: false,
+    shouldUseNativeValidation: false,
+  });
 
-  const handleUploadAndTranscribe = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleOnDrop = (acceptedFiles: FileList | null) => {
+    if (!acceptedFiles || !acceptedFiles.length) {
+      methods.setValue("file", null)
+      methods.setError("file", {
+        message: "File is required",
+        type: "typeError",
+      })
+      return
+    }
+
+    const acceptedFile = acceptedFiles[0]
+
+    const fileType = allowedTypes.find((allowedType) =>
+      allowedType.types.find((type) => type === acceptedFile.type)
+    );
+
+    if (!fileType) {
+      methods.setValue("file", null);
+      methods.setError("file", {
+        message: "File type is not valid",
+        type: "typeError",
+      });
+      return
+    }
+
+    if (acceptedFiles[0].size > 15000000) {
+      methods.setValue("file", null);
+      methods.setError("file", {
+        message: "File size needs to be less than 15MB",
+        type: "typeError",
+      });
+      return
+    }
+
+    methods.setValue("file", acceptedFile);
+    methods.clearErrors("file");
+  }
+
+  const handleUploadAndTranscribe = async ({ file }: FileForm) => {
     try {
-      const { files } = event.target
-
-      if (!files?.length) return
-
-      const file = files[0]
+      if (!file) return
 
       const fileUrl = await uploadFile({ file })
 
@@ -37,21 +83,56 @@ const UploadFile: FC<Props> = ({ projectId }) => {
           extension: file?.type ?? ''
         }
       })
-    } catch (error) {
-      // Todo: notify error
-      console.log('error', error)
+    } catch (error: any) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: error?.message ?? "There was a problem with your request.",
+      })
     }
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-      <div className="flex md:h-96 flex-col items-center justify-center space-y-4 rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-gray-500 transition-colors hover:border-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600">
-        <UploadIcon className="h-10 w-10" />
-        <TypographyP className="text-center" >Drag and drop your audio file or</TypographyP>
-        <Button onClick={handleOpenFileSystem} variant="outline">Select file</Button>
-        <Input onChange={handleUploadAndTranscribe} accept=".mp3,audio/*" className="hidden" ref={inputRef} type="file" />
-      </div>
-    </div>
+    <FormProvider {...methods}>
+      <form
+        className="flex flex-col items-center justify-center w-100 gap-4"
+        onSubmit={methods.handleSubmit(handleUploadAndTranscribe)}
+        noValidate
+        autoComplete="off"
+      >
+        <FormField
+          disabled={methods.formState.isSubmitting}
+          control={methods.control}
+          name="file"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormControl>
+                <Dropzone
+                  {...field}
+                  disabled={methods.formState.isSubmitting}
+                  accept=".mp3,audio/*"
+                  dropMessage="Drop files or click here"
+                  handleOnDrop={handleOnDrop}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {methods.watch("file") && (
+          <div className="flex items-center justify-center gap-3 p-4 relative">
+            <FileCheck2Icon className="h-4 w-4" />
+            <p className="text-sm font-medium">{methods.watch("file")?.name}</p>
+          </div>
+        )}
+        <Button
+          disabled={!methods.formState.isDirty || methods.formState.isSubmitting}
+          loading={methods.formState.isSubmitting}
+          type="submit">
+          <Captions className="h-4 w-4 mr-2" />
+          Transcribe
+        </Button>
+      </form>
+    </FormProvider>
   )
 }
 
