@@ -6,11 +6,13 @@ import projectController, { UpdateFileArgs, UpdateNameArgs } from "@/server/cont
 import assemblyaiController from "@/server/controllers/assemblyai"
 
 import { IProject } from "@/interfaces/project"
+import { redirect } from "next/navigation"
 
 export const createProject = async () => {
-  await projectController.create()
+  const project = await projectController.create()
 
   revalidatePath('/workspace')
+  redirect(`/workspace/${project._id}`)
 }
 
 export const getProjects = async (): Promise<IProject[]> => {
