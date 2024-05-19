@@ -14,7 +14,7 @@ const Project = new Schema<IProject, IProjectModel>(
       default: 'Untitled'
     },
     createdById: {
-      type: Schema.ObjectId
+      type: String
     },
     file: {
       type: FileSchema
