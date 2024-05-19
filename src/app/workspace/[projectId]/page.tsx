@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { NextPage } from "next";
 
-import Header from "@/components/Header";
+import Header from "@/components/Project/Header";
 import Footer from "@/components/Project/Footer";
 import FooterSkeleton from "@/components/Project/Skeleton/FooterSkeleton";
 import TranscriptionWrapper from "@/components/Project/TranscriptionWrapper";
@@ -11,7 +11,7 @@ interface Props {
   params: { projectId: string }
 }
 
-const ProjectPage: NextPage<Props> = async ({ params }) => {
+const ProjectPage: NextPage<Props> = ({ params }) => {
   const { projectId } = params
 
   return (

@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 
 import { createProject } from "@/server/routes/project";
 
-import Header from "@/components/Header";
+import Header from "@/components/Project/Header";
 import ProjectList from "@/components/ProjectList";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { TypographyH1 } from "@/components/ui/Typography";
