@@ -2,7 +2,6 @@ import Hero from "@/components/Home/Hero";
 import Header from "@/components/Home/Header";
 import Footer from "@/components/Home/Footer";
 import CrossPlatform from "@/components/Home/CrossPlatform";
-import MultipleLanguageSupport from "@/components/Home/MultipleLanguageSupport";
 
 export default function Home() {
 
@@ -13,7 +12,6 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <CrossPlatform />
-        <MultipleLanguageSupport />
       </main>
 
       <Footer />

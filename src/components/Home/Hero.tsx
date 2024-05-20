@@ -2,7 +2,8 @@ import React from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import { TypographyH1, TypographyLarge, TypographyP } from '../ui/Typography'
+
+import { TypographyH1, TypographyLarge } from '@/components/ui/Typography'
 
 const Hero = () => {
 
