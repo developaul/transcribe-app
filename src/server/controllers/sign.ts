@@ -16,7 +16,7 @@ class SignController {
     const key = this.generateKey(fileName)
 
     const putObjectCommand = new PutObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME!,
+      Bucket: process.env.STORAGE_BUCKET_NAME!,
       Key: key,
     });
 

@@ -1,10 +1,10 @@
 import { S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
 
 const s3ClientConfig: S3ClientConfig = {
-  region: process.env.AWS_BUCKET_REGION,
+  region: process.env.STORAGE_BUCKET_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY!,
-    secretAccessKey: process.env.AWS_PRIVATE_KEY!,
+    accessKeyId: process.env.STORAGE_ACCESS_KEY!,
+    secretAccessKey: process.env.STORAGE_SECRET_KEY!,
   },
 };
 
