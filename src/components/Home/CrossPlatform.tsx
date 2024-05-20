@@ -6,7 +6,7 @@ import { TypographyH2, TypographyLarge } from '@/components/ui/Typography'
 const CrossPlatform = () => {
 
   return (
-    <section className="bg-slate-50 dark:bg-gray-950 lg:py-0">
+    <section className="bg-slate-50 dark:bg-stone-950 lg:py-0">
       <div className="container h-svh flex flex-col items-center justify-center lg:flex-row gap-8 lg:gap-14">
         <Image
           src="/tablet.webp"
