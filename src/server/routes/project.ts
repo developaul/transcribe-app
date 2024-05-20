@@ -9,8 +9,6 @@ import { IProject } from "@/interfaces/project"
 import { redirect } from "next/navigation"
 import { auth } from "@clerk/nextjs/server"
 
-export const maxDuration = 60
-
 export const createProject = async () => {
   auth().protect();
   const project = await projectController.create()
